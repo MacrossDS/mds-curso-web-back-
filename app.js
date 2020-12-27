@@ -4,11 +4,13 @@ var bodyParser = require('body-parser');
 const cors = require('cors');
 const database = require('./config/database')
 const colors = require('colors')
+const authVerify = require("./middlewares/jwt")
 
 
 // routes 
 const productsRoutes = require('./routes/Products.routes')
 const categoriesRoutes = require('./routes/Categories.routes')
+const usersRoutes = require('./routes/Users.routes')
 
 require('dotenv').config();
 
@@ -28,6 +30,9 @@ app.use(cors());
 //     });
 // });
 
+app.use(usersRoutes);
+
+app.use(authVerify)
 
 app.use(productsRoutes);
 app.use(categoriesRoutes);
